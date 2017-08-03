@@ -9,6 +9,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../models/user';
 
 
+
 @IonicPage({
   name:'photos',
 })
@@ -18,10 +19,10 @@ import { User } from '../../models/user';
 })
 export class PhotosPage {
 
-public posts:Observable<IPosts>;
+  public posts:Observable<IPosts>;
 
   photos: string = "stream";
-  limit: number = 2;
+  limit: number = 5;
   user;
   public favored = false;
 

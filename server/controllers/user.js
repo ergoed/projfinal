@@ -98,7 +98,7 @@ const userController = {
    //console.dir("UID HERE",uid, "PID HERE", pid)
    req.user.favoritePosts.pull(pid);
    var id = 88;
-// 
+//
 // for(var i = 0; i < data.length; i++) {
 //     if(data[i].id == id) {
 //         data.splice(i, 1);
@@ -109,6 +109,18 @@ const userController = {
      return res.send({success: true, message: ''});
    }).catch(next)
  },
+
+ setAvatar:(req,res,next)=>{
+     const uid    = req.params.uid;
+     const input = req.body;
+     const promise = User.findByIdAndUpdate(uid, {$set: input}, {new: true})
+     promise.then(found => {
+         if (found)
+             return res.send(found);
+         else
+             return res.status(404 /* Not Found */).send();
+     }).catch(next);
+},
 
   changePwd: (req, res, next) =>{
       const logged_in = req.authUser;

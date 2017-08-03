@@ -2,8 +2,10 @@ import { LaunchNavigator, LaunchNavigatorOptions } from 'ionic-native';
 
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { MapComponent } from '../../components/map/map';
+import { Platform } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the AroundPage page.
@@ -17,8 +19,10 @@ import { MapComponent } from '../../components/map/map';
   templateUrl: 'locations.html',
 })
 export class LocationsPage {
-  destination:string;
+  destination:any;
   start:string;
+  lat: number;
+  lon: number;
 
   @ViewChild('map1')
   private map: MapComponent;
@@ -28,10 +32,13 @@ export class LocationsPage {
 
   tab: string = "aa";
 
-  constructor(public navCtrl: NavController){
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private platform: Platform,
+              private geolocation: Geolocation){
 
     this.start = "";
-    this.destination = "Westminster, London, UK";
+    this.destination = [46.2043907, 6.143157699999961];
     this.location1 = {  lat: 46.2043907,
                         long: 6.143157699999961 }
     this.location2 = {  lat:46.192233,
@@ -51,20 +58,32 @@ export class LocationsPage {
     console.log('selected position-> ',pos, this.map)
     this.map.init(pos.lat, pos.long);
     this.map.addMarker(pos.lat, pos.long, "marquer");
-
   }
-  
-  navigate(){
-    let options: LaunchNavigatorOptions = {
-      start: this.start
-    };
 
+
+  navigate(){
+  this.platform.ready().then(() => {
+    this.geolocation.getCurrentPosition().then(pos => {
+      this.lat = pos.coords.latitude;
+      this.lon = pos.coords.longitude;
+      let myposition = `${this.lat},${this.lon}`;
+      console.log();
+      this.start = myposition;
+      return this.start;
+    })
+
+    let options: LaunchNavigatorOptions = {
+      start: this.start,
+      app: LaunchNavigator.APP.GOOGLE_MAPS
+    };
     LaunchNavigator.navigate(this.destination, options)
         .then(
             success => alert('Launched navigator'),
             error => alert('Error launching navigator: ' + error)
     );
+  })
   }
+
 
   ionViewDidEnter() {
     // this.map.init(46.2043907, 6.143157699999961);

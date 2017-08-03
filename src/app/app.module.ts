@@ -18,6 +18,8 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { EnvironmentsModule } from "./environment/environment.module";
+import { GuestmessagesProvider } from '../providers/guestmessages/guestmessages';
+import { WeddingsProvider } from '../providers/weddings/weddings';
 
 
 // Auth Factory
@@ -67,7 +69,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, stor
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions, Storage]
-    }
+    },
+    GuestmessagesProvider,
+    WeddingsProvider
 
   ]
 })

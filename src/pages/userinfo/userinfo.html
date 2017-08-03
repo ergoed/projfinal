@@ -1,0 +1,65 @@
+
+<ion-header>
+
+  <ion-navbar primary>
+    <ion-title>"{{user.name}}" Info</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item>
+      <ion-avatar class="avatar" center text-center>
+        <img src="{{this.user.avatarSRC}}">
+      </ion-avatar>
+      <h3 center text-center>{{this.user.name}}</h3>
+      <h5 center text-center>Change Avatar</h5>
+</ion-item>
+      <ion-item>
+        <button ion-button full large circle item-end icon-left>
+          <ion-icon name="image"></ion-icon>Your Album
+        </button>
+      </ion-item>
+      <ion-item>  
+        <button ion-button block icon-left  class="profilBtn" (click)="logOut()" color="secondary">
+          <ion-icon name="md-log-out"></ion-icon>Log Out
+        </button>
+
+      </ion-item>
+
+</ion-list>
+</ion-content>
+
+
+<style>
+.avatar, ion-avatar{
+  width: 130px;
+  height: 130px;
+   margin: auto;
+}
+
+.item-md ion-avatar ion-img, .item-md ion-avatar img{
+  margin-top: 50px;
+  width: 200px;
+  height: 130px;
+}
+
+h3{
+  margin-top: 40px;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+h3{
+  margin-top: 40px;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.userAlbum{
+  margint-top: 50px;
+}
+</style>

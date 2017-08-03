@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription.js'
+import { WeddingsProvider, IWeddings, IWedding } from '../../providers/weddings/weddings';
 
-/**
- * Generated class for the InfoPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-info',
@@ -14,7 +12,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class InfoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+weddingActive
+idwed= "59839b8733dcfe2e333a4120"
+
+  active_wedding = "wedding2"
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public wedding: WeddingsProvider,) {
+
+                this.weddingActive = this.wedding.getMariage(this.idwed)
+                console.log(this.weddingActive.title)
+
   }
 
   ionViewDidLoad() {

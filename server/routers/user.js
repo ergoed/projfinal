@@ -23,16 +23,6 @@ const router = new express.Router();
        }).catch(next);
    });
 
-//
-// //authentication (login) a user
-// router.post("/login", (req, res) => {
-//   let email = req.body.email;
-//   let password = req.body.password;
-//   //check credentials
-//   // 1 get user from mongo using email
-//   // 2 check passord using bcrypt
-//   // ( 3 generate token , see with alex)
-// })
 
 const log = (req, res,next) => {
     if (process.env.NODE_ENV != 'test') {
@@ -60,6 +50,8 @@ router.delete("/:uid", passport.authenticate('jwt', {session: false}), userContr
 router.post("/:uid/actions/addtofavorite/", userController.addToFavorite);
 
 router.delete("/:uid/actions/deletefavorite/", userController.deleteFavorite);
+
+router.put("/:uid/actions/setavatar/", userController.setAvatar);
 
 
 //

@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { LocationsPage } from './locations';
 import { HeaderContentComponentModule } from '../../components/header-content/header-content.module';
 import { MapComponentModule } from '../../components/map/map.module';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -16,6 +17,9 @@ import { MapComponentModule } from '../../components/map/map.module';
   ],
   exports: [
     LocationsPage
+  ],
+  providers: [
+  Geolocation
   ]
 })
 export class LocationsPageModule {}

@@ -1,11 +1,9 @@
+import { IonicPage, NavController, NavParams, Refresher } from 'ionic-angular';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { AuthProvider } from '../../providers/auth/auth';
+import { User } from '../../models/user';
 
-/**
- * Generated class for the HeaderContentComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
+
 @Component({
   selector: 'header-content',
   templateUrl: 'header-content.html'
@@ -17,8 +15,13 @@ export class HeaderContentComponent {
   showBack:Boolean;
 
   @Output() onBack: EventEmitter<any> = new EventEmitter();
-
-  constructor() {
+  user;
+  constructor(public authProvider: AuthProvider,
+              public navCtrl: NavController,
+              public navParams: NavParams,) {
+    this.authProvider.user$.subscribe((user)=> {
+      this.user = user;
+    })
   }
 
   ngOnInit() {
@@ -27,6 +30,10 @@ export class HeaderContentComponent {
 
   onClickBack(){
     this.onBack.emit({})
+  }
+
+  showUserInfo(){
+    this.navCtrl.push('UserinfoPage');
   }
 
 }

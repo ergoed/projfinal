@@ -22,7 +22,6 @@ const User = require("./models/user");
 
 /* create our app */
 const app = express();
-
 const cors = require("cors")
 
 /* configuration */
@@ -66,6 +65,7 @@ app.use(cors());
 app.use("/api/users", require("./routers/user"));
 app.use("/api/posts", require("./routers/post"));
 app.use("/api/weddings", require("./routers/wedding"));
+app.use("/api/guestmessages", require("./routers/guestmessage"));
 
 // expose our app to require()
 module.exports = app;

@@ -20,10 +20,10 @@
     <ion-list *ngSwitchCase="'stream'">
       <div *ngIf="(posts | async); else noPost">
         <!-- <div *ngIf="!posts.index === 0">No posts</div> -->
-    <button full ion-button item-center (click)="postPhoto()">
-      <ion-icon name="camera"></ion-icon>
-      <p>Post a Photo</p>
-    </button>
+      <button full ion-button item-center (click)="postPhoto()">
+        <ion-icon name="camera"></ion-icon>
+        <p>Post a Photo</p>
+      </button>
 
     <ion-item  *ngFor="let post of (posts | async | slice:0:limit); let i = index;">
 
@@ -62,14 +62,17 @@
     </ion-item>
             <!-- ---------- > {{limit}} < --------- -->
     <div *ngIf="limit < (posts | async).length" (click)="onClick(item)">
-
-        <button ion-button full>Show More</button>
-      </div>
-
+      <button ion-button full>Show More</button>
     </div>
 
+  </div>
+
       <ng-template #noPost>
-        <h1>No posts</h1>
+        <h1>No photos! Be the first share.</h1>
+        <button full ion-button item-center (click)="postMessage()">
+          <ion-icon name="camera"></ion-icon>
+          <p>Share a Photo!</p>
+        </button>
       </ng-template>
 
     </ion-list>

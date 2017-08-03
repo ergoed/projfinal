@@ -1,10 +1,60 @@
+
 <ion-header>
-
   <header-content title="Guest Book"></header-content>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="cards-bg social-cards" padding>
+
+  <div *ngIf="(guestmessages | async); else noPost">
+
+    <button full ion-button item-center (click)="postMessage()">
+      <ion-icon name="camera"></ion-icon>
+      <p>Write a Message</p>
+    </button>
+
+    <ion-item  *ngFor="let guestmessage of (guestmessages | async | slice:0:limit); let i = index;">
+
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{guestmessage.creator.avatarSRC}}">
+          </ion-avatar>
+          <h2>{{guestmessage.creator.name}}</h2>
+        </ion-item>
+
+
+        <ion-card-header>
+          {{guestmessage.title}}
+        </ion-card-header>
+
+        <ion-card-content>
+          {{guestmessage.body}}
+        </ion-card-content>
+
+      </ion-card>
+
+    </ion-item>
+            <!-- ---------- > {{limit}} < --------- -->
+    <div *ngIf="limit < (guestmessages | async).length" (click)="onClick(item)">
+
+        <button ion-button full>Show More</button>
+    </div>
+
+  </div>
+
+      <ng-template #noPost>
+        <h1>No posts, Be the first to drop a Fare Well message.</h1>
+        <button full ion-button item-center (click)="postMessage()">
+          <ion-icon name="camera"></ion-icon>
+          <p>Write a Message</p>
+        </button>
+      </ng-template>
 
 </ion-content>
+
+<style>
+  .social-cards ion-col {
+    padding: 0;
+  }
+</style>

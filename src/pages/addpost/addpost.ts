@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ViewController, NavParams, ToastController, Platform, ActionSheetController } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 import { PostsService} from '../../providers/posts/posts';
+import { UsersProvider } from '../../providers/users/users';
+import { AuthProvider } from '../../providers/auth/auth';
+import { User } from '../../models/user';
 
 declare var window: any;
 
@@ -11,11 +14,14 @@ declare var window: any;
   templateUrl: 'addpost.html',
  })
  export class AddpostPage {
-
+    user
     code:string;
     public base64Image: string;
     private error: string;
     private imageInfo: string = 'none';
+    body:any;
+    postdate:any;
+    timenow:any;
 
     constructor(public navCtrl: NavController,
                 public viewCtrl: ViewController,
@@ -23,7 +29,11 @@ declare var window: any;
                 private readonly camera: Camera,
                 private postservice: PostsService,
                 public toastCtrl: ToastController,
-                public actionSheetCtrl: ActionSheetController) {
+                public actionSheetCtrl: ActionSheetController,
+                public authProvider: AuthProvider,) {
+                  this.authProvider.user$.subscribe((user)=> {
+                    this.user = user;
+                  })
     }
 
 
@@ -85,8 +95,27 @@ declare var window: any;
     	}, {
     		maximumImagesCount: 1,
     		width: 800
-    	}, function(imageData){
+    	},   async function(imageData){
         this.base64Image = "data:image/jpeg;base64," + imageData;  //AWFMLOAEGMOAWEMGOPA
+          try {
+            let imageDataInBase64 = this.base64Image.replace(/^data:image\/jpeg;base64,/, "");
+            var self = this;
+            await window.imageResizer.resizeImage(
+              function(data) {
+                 self.imageInfo = `Taille: ${data.width} x ${data.height}`;
+                 self.base64Image = "data:image/jpeg;base64," + data.imageData;
+              }, function (error) {
+                 self.error = error;
+              }, imageDataInBase64, 0.5, 0.5, {
+                 resizeType: window.ImageResizer.RESIZE_TYPE_FACTOR,
+                 imageDataType: window.ImageResizer.IMAGE_DATA_TYPE_BASE64,
+                 format: window.ImageResizer.FORMAT_JPG
+              }
+            );
+          }
+          catch(e) {
+            this.error = e;
+          }return this.base64Image;
       }
     );
   }
@@ -118,22 +147,22 @@ declare var window: any;
   }
 
     submit(){
-
-
-    this.postservice.create({
+      let timenow:number = Date.now()
+      // let timenow:number = parseInt(time);
+      console.log(timenow)
+      console.log(this.user._id)
+      this.postservice.create({
       creator: {
-        name: "string",
-        uID: "string",
-        avatarSRC: "string"
+        name: this.user.name,
+        uID: this.user._id,
+        avatarSRC: this.user.avatarSRC,
       },
-      title: 'string',
-      body: 'string',
-      imageSRC: 'string',
-      postdate: 'string',
-      weddingID: 'string'
-    })
-
+      body: this.body,
+      imageSRC: this.base64Image,
+      postdate: this.timenow,
+      weddingID: "wedding2"
+      })
+         this.navCtrl.pop();
     }
-
 
  }

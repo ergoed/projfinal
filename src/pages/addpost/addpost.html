@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar primary>
-    <ion-title>Subscribe</ion-title>
+    <ion-title>Post a Photo</ion-title>
     <ion-buttons end>
       <button ion-button button-clear (click)="close()">
         <ion-icon name="close"></ion-icon>
@@ -16,25 +16,14 @@
 
     <ion-item>
       <ion-label stacked>Description</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="body">></ion-input>
     </ion-item>
-
-    <!-- <button ion-button icon-start round (click)="getPicture()">
-      <ion-icon name='camera' is-active="false"></ion-icon>
-      <span>Take picture</span>
-    </button>
-    <button ion-button icon-end color="secondary" outline round (click)="getPictureFromFolder()">
-      <ion-icon name='albums' is-active="false"></ion-icon>
-      <span>Choose from Album</span>
-    </button> -->
 
     <ion-buttons>
       <button ion-button icon-left full round (click)="presentActionSheet()">
         <ion-icon name="camera"></ion-icon>Select Image
       </button>
     </ion-buttons>
-
-
 
     <ion-item *ngIf="error" class="add_error">
       {{error}}
@@ -44,9 +33,9 @@
      <img id="photo" [src]="base64Image" *ngIf="base64Image" />
      </ion-card>
 
-     <!-- <ion-item *ngIf="imageInfo" class="add_error">
+     <ion-item *ngIf="imageInfo" class="add_error">
        {{imageInfo}}
-     </ion-item> -->
+     </ion-item>
 
      <button ion-button round full (click)="submit()">
        <span>Submit</span>
@@ -56,9 +45,9 @@
      </button>
 
 
-     <button ion-button round full (click)="resizePicture()">
+     <!-- <button ion-button round full (click)="resizePicture()">
        <span>Res</span>
-     </button>
+     </button> -->
 
    <!-- <button *ngIf="base64Image"
            ion-button
