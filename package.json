@@ -102,5 +102,8 @@
             },
             "de.appplant.cordova.plugin.local-notification": {}
         }
+    },
+    "config": {
+      "ionic_webpack": "./webpack.config.js"
     }
 }
