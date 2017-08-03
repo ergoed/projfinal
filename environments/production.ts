@@ -5,9 +5,9 @@ export const prodVariables:IEnvironment = {
   ionicEnvName: 'prod',
 
   // Front-end
-  apiEndpoint: 'http://localhost:8080',
+  apiEndpoint: 'https://polar-woodland-68468.herokuapp.com',
 
   // Back-end
-  dbHost: 'mongodb://localhost:27017',
-  dbName: 'grand-mongo2'
+  dbHost: 'mongodb://ed:asdfrewq1234@ds061206.mlab.com:61206',
+  dbName: 'grand-mongo'
 };
