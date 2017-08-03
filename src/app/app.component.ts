@@ -37,8 +37,8 @@ export class MyApp {
         this.initialized = true;
       }
       console.log('user authentication', user);
-      this.rootPage = 'tab'
-      // this.rootPage = user != null ? 'tab' : 'login';
+      // this.rootPage = 'tab'
+      this.rootPage = user != null ? 'tab' : 'login';
     },
     err => console.log(err));
 

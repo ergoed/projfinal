@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http , Headers } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { prodVariables } from "../../../environments/production";
 
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -28,7 +29,8 @@ export interface Creator {
       avatarSRC?: string;
     };
 
-export const POSTS_URL = 'http://localhost:3000/api/posts'
+export const POSTS_URL = (process.env.IONIC_ENV === 'prod')? prodVariables.apiEndpoint+"/api/posts" : "http://localhost:3000/api/posts";
+
 
 @Injectable()
 export class PostsService {
