@@ -1,0 +1,93 @@
+
+<ion-header>
+  <header-content title="Photos"></header-content>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="photos">
+      <ion-segment-button value="stream">
+        Stream
+      </ion-segment-button>
+      <ion-segment-button value="albums">
+        Albums
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="cards-bg social-cards" padding>
+
+  <div [ngSwitch]="photos">
+    <ion-list *ngSwitchCase="'stream'">
+      <div *ngIf="(posts | async); else noPost">
+        <!-- <div *ngIf="!posts.index === 0">No posts</div> -->
+    <button full ion-button item-center (click)="postPhoto()">
+      <ion-icon name="camera"></ion-icon>
+      <p>Post a Photo</p>
+    </button>
+
+    <ion-item  *ngFor="let post of (posts | async | slice:0:limit); let i = index;">
+
+      <ion-card>
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{post.creator.avatarSRC}}">
+          </ion-avatar>
+          <h2>{{post.creator.name}}</h2>
+        </ion-item>
+
+        <img src="{{post.imageSRC }}">
+
+        <ion-card-content>
+            {{post.body}}
+        </ion-card-content>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+            <button *ngIf='!favored' ion-button color="primary" clear small icon-start (click)="favorite(post)" (click)="favoritToogle()"> <ion-icon #iconFave name='heart-outline' > </ion-icon>Add to Favorites</button>
+            <button *ngIf='favored' ion-button color="primary" clear small icon-start (click)="removeFavorite(post)" (click)="favoritToogle()"> <ion-icon #iconFave name='heart' > </ion-icon>Loved it!</button>
+          </ion-item>
+          </ion-col>
+          <ion-col align-self-center text-center>
+            <ion-note>
+            {{post.postdate | diffDate}}
+            </ion-note>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+    </ion-item>
+            <!-- ---------- > {{limit}} < --------- -->
+    <div *ngIf="limit < (posts | async).length" (click)="onClick(item)">
+
+        <button ion-button full>Show More</button>
+      </div>
+
+    </div>
+
+      <ng-template #noPost>
+        <h1>No posts</h1>
+      </ng-template>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'albums'">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="assets/img/thumbnail-kitten-1.jpg">
+        </ion-thumbnail>
+        <h2>Albums</h2>
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ion-content>
+
+<style>
+  .social-cards ion-col {
+    padding: 0;
+  }
+</style>

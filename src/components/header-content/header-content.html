@@ -1,0 +1,22 @@
+
+
+
+<ion-toolbar>
+    <ion-item>
+    <ion-buttons left *ngIf="showBack">
+       <button ion-button (click)="onClickBack()">
+         <ion-icon name='arrow-back'></ion-icon>
+       </button>
+    </ion-buttons>
+
+
+    <ion-title>{{title}}</ion-title>
+
+
+
+          <ion-avatar item-end>
+            <img src="https://cdn.pixabay.com/photo/2016/05/13/12/19/face-1389832_960_720.jpg">
+          </ion-avatar>
+        </ion-item>
+
+</ion-toolbar>

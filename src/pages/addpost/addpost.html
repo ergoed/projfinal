@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-navbar primary>
+    <ion-title>Subscribe</ion-title>
+    <ion-buttons end>
+      <button ion-button button-clear (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <!-- <button ion-button icon-start round (click)="getPicture()">
+      <ion-icon name='camera' is-active="false"></ion-icon>
+      <span>Take picture</span>
+    </button>
+    <button ion-button icon-end color="secondary" outline round (click)="getPictureFromFolder()">
+      <ion-icon name='albums' is-active="false"></ion-icon>
+      <span>Choose from Album</span>
+    </button> -->
+
+    <ion-buttons>
+      <button ion-button icon-left full round (click)="presentActionSheet()">
+        <ion-icon name="camera"></ion-icon>Select Image
+      </button>
+    </ion-buttons>
+
+
+
+    <ion-item *ngIf="error" class="add_error">
+      {{error}}
+    </ion-item>
+
+    <ion-card>
+     <img id="photo" [src]="base64Image" *ngIf="base64Image" />
+     </ion-card>
+
+     <!-- <ion-item *ngIf="imageInfo" class="add_error">
+       {{imageInfo}}
+     </ion-item> -->
+
+     <button ion-button round full (click)="submit()">
+       <span>Submit</span>
+     </button>
+     <button ion-button round full (click)="close()">
+       <span>Close</span>
+     </button>
+
+
+     <button ion-button round full (click)="resizePicture()">
+       <span>Res</span>
+     </button>
+
+   <!-- <button *ngIf="base64Image"
+           ion-button
+           icon-left round full
+           (click)="resizePicture()">Resize my picture</button> -->
+
+  </ion-list>
+</ion-content>

@@ -1,0 +1,8 @@
+{
+    "server": {
+        "port": 3000
+    },
+    "mongodb": {
+        "database": "mongodb://ed:asdfrewq1234@ds061206.mlab.com:61206/grand-mongo"
+    }
+}

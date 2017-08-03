@@ -1,0 +1,36 @@
+  <ion-header>
+  <header-content title="Locations"></header-content>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="tab" color="primary" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="aa">
+          Place 1
+        </ion-segment-button>
+        <ion-segment-button value="bb">
+          Place 2
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+
+
+
+  <ion-content>
+    <map #map1 mapID="location1"></map>
+    <div [ngSwitch]="tab">
+      <ion-item *ngSwitchCase="'aa'">
+        <ion-item>
+        </ion-item>
+      </ion-item>
+      <ion-item *ngSwitchCase="'bb'">
+        <ion-item>
+
+        </ion-item>
+      </ion-item>
+    </div>
+
+
+
+  <ion-fab bottom right>
+    <button ion-fab mini (click)="navigate()"> <ion-icon name="share"> </ion-icon> </button>
+  </ion-fab>
+  </ion-content>
